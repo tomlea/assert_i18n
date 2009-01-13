@@ -1,0 +1,21 @@
+h1. AssertI18n
+
+A collection of `I18n` assertions I use in daily life.
+
+h2. Usage:
+
+      class FooTest < Test::Unit::TestCase
+        include AssertI18n::TestHelper
+        
+        def test_should_have_translations_for_the_word_foo
+          assert_no_missing_translations do
+            I18n.t(:foo)
+          end
+        end
+
+        def test_should_have_all_translations_needed_for_rendering_email
+          assert_no_missing_translations do
+            MyApp::EMailRenderer.new(:foo).render!
+          end
+        end
+      end
