@@ -1,0 +1,1 @@
+AssertI18n::CoreExt.hook!
