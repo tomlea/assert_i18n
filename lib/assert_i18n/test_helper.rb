@@ -1,3 +1,4 @@
+require "set"
 module AssertI18n::TestHelper
   # Assert that there are no missing translations during the course of executing the block.
   def assert_no_missing_translations(message = "Did not expect missing translations.", &block)
