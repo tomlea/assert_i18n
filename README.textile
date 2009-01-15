@@ -1,8 +1,16 @@
 h1. AssertI18n
 
-A collection of `I18n` assertions I use in daily life.
+A collection of @I18n@ assertions I use in daily life.
+
+h2. Methods Provided:
+
+* @assert_no_missing_translations@ - Checks that no missing translation errors occurred inside the block
+* @assert_all_locales_have_all_translations_available_to_the_default_locale@ - Makes sure all your locale translations files are in sync with your default locale.
+* @assert_localized_file_availability@ - Checks that a file is exists in all @available_locales@.
 
 h2. Usage:
+
+h3. assert_no_missing_translations:
 
       class FooTest < Test::Unit::TestCase
         include AssertI18n::TestHelper
@@ -17,5 +25,23 @@ h2. Usage:
           assert_no_missing_translations do
             MyApp::EMailRenderer.new(:foo).render!
           end
+        end
+      end
+
+h3. assert_all_locales_have_all_translations_available_to_the_default_locale
+
+      class PredeployTest < Test::Unit::TestCase
+        include AssertI18n::TestHelper
+        def test_all_locales_have_all_translations_available_to_the_default_locale
+          assert_all_locales_have_all_translations_available_to_the_default_locale
+        end
+      end
+
+h3. assert_localized_file_availability
+
+      class PredeployTest < Test::Unit::TestCase
+        include AssertI18n::TestHelper
+        def test_we_have_our_logo_in_all_locales
+          assert_localized_file_availability("#{Rails.root}/public/images/logo_%s.png")
         end
       end
