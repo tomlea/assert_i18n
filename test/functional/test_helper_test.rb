@@ -1,7 +1,4 @@
-require "test/unit"
-require "i18n"
-
-require File.join(File.dirname(__FILE__), *%w[.. .. rails init])
+require File.join(File.dirname(__FILE__), "..", "test_helper")
 
 class TestNoMissingTranslations < Test::Unit::TestCase
   include AssertI18n::TestHelper

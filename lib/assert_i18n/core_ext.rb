@@ -22,8 +22,20 @@ module AssertI18n::CoreExt
       def exceptions_to_proc=(proc)
         @@exceptions_to_proc = proc
       end
+      
+      def available_translations(locale)
+        backend.available_translations(locale)
+      end
     end
-  end
+    
+    module Backend
+      module Simple
+        def available_translations(locale)
+          flatten_hash_tree_keys(translations[locale])
+        end        
+      end
+    end
+  end  
 end
 
 AssertI18n::CoreExt.hook!
