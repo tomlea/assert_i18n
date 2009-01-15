@@ -27,7 +27,7 @@ module AssertI18n::TestHelper
     end
   end
 
-  def assert_localized_file_availablity(file_path)
+  def assert_localized_file_availability(file_path)
     I18n.available_locales.each do |locale|
       localized_file_path = file_path % [locale]
       assert File.exists?(File.join(Rails.root, localized_file_path)), "Missing localized file: #{localized_file_path} for locale #{locale}."
