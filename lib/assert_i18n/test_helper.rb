@@ -1,24 +1,6 @@
 require "set"
 
 module AssertI18n::TestHelper
-  def missing_translations_in(&block)
-    exception_handler = I18n.exception_handler
-    missing_translations = Set.new
-
-    I18n.exception_handler = :exceptions_to_proc
-    I18n.exceptions_to_proc = proc{|e, *args|
-     raise e unless e.is_a? I18n::MissingTranslationData
-     missing_translations << e
-     e.message
-    }
-    
-    yield
-    
-    missing_translations.to_a
-  ensure
-    I18n.exception_handler = exception_handler
-  end
-  
   # Assert that there are no missing translations during the course of executing the block.
   def assert_no_missing_translations(message = "Did not expect missing translations.", &block)
     _wrap_assertion do
@@ -38,11 +20,36 @@ module AssertI18n::TestHelper
     locales_to_check.each do |target_locale|
       defined_translations = I18n.available_translations(target_locale.to_sym)
       missing_translations = required_translations - defined_translations
-              
       if missing_translations.any?
         missing_translations_for_output = missing_translations.map{|parts| " * #{parts.join('.')}" }.join("\n")
         raise Test::Unit::AssertionFailedError.new("#{message} - Missing translations for #{target_locale.inspect}:\n#{missing_translations_for_output}")
       end
     end
+  end
+
+  def assert_localized_file_availablity(file_path)
+    I18n.available_locales.each do |locale|
+      localized_file_path = file_path % [locale]
+      assert File.exists?(File.join(Rails.root, localized_file_path)), "Missing localized file: #{localized_file_path} for locale #{locale}."
+    end
+  end
+
+  private
+  def missing_translations_in(&block)
+    exception_handler = I18n.exception_handler
+    missing_translations = Set.new
+
+    I18n.exception_handler = :exceptions_to_proc
+    I18n.exceptions_to_proc = proc{|e, *args|
+     raise e unless e.is_a? I18n::MissingTranslationData
+     missing_translations << e
+     e.message
+    }
+
+    yield
+
+    missing_translations.to_a
+  ensure
+    I18n.exception_handler = exception_handler
   end
 end
