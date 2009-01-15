@@ -3,6 +3,7 @@ require "i18n"
 module AssertI18n::CoreExt
   def self.hook!
     ::I18n.send(:include, I18n)
+    ::I18n::Backend::Simple.send(:include, I18n::Backend::Simple)
   end
   
   module I18n
@@ -31,8 +32,8 @@ module AssertI18n::CoreExt
     module Backend
       module Simple
         def available_translations(locale)
-          flatten_hash_tree_keys(translations[locale])
-        end        
+          AssertI18n.flatten_hash_tree_keys(translations[locale])
+        end
       end
     end
   end  
