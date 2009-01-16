@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{assert_i18n}
-  s.version = "0.2"
+  s.version = "0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Tom Lea"]
-  s.date = %q{2009-01-15}
+  s.authors = ["Tom Lea", "Craig Smith"]
+  s.date = %q{2009-01-16}
   s.description = %q{A collection of `I18n` assertions I use in daily life.}
   s.email = %q{commits@tomlea.co.uk}
   s.extra_rdoc_files = ["README.textile"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
   s.rdoc_options = ["--line-numbers", "--inline-source", "--main", "README.textile"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.0}
+  s.rubygems_version = %q{1.3.1}
   s.summary = %q{A collection of `I18n` assertions I use in daily life.}
   s.test_files = ["test/functional/assert_all_translations_available_test.rb", "test/functional/test_helper_test.rb", "test/unit/supporting_methods_test.rb"]
 
