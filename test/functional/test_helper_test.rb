@@ -26,3 +26,23 @@ class TestNoMissingTranslations < Test::Unit::TestCase
     end
   end
 end
+
+class TestEachLocale < Test::Unit::TestCase
+  include AssertI18n::TestHelper
+  
+  def test_should_run_block_for_every_locale
+    I18n.reload!
+    
+    expected_locales = [:pr_PR, :en_GB, :poo_FACE].each do |locale|
+      I18n.backend.store_translations(locale, {})
+    end
+    
+    locales_run_in_block = []
+    each_locale do |locale|
+      locales_run_in_block << locale
+    end
+    
+    assert_equal expected_locales, locales_run_in_block
+  end
+
+end

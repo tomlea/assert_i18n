@@ -34,6 +34,10 @@ module AssertI18n::TestHelper
     end
   end
 
+  def each_locale(&block)
+    I18n.available_locales.each(&block)
+  end
+
   private
   def missing_translations_in(&block)
     exception_handler = I18n.exception_handler
