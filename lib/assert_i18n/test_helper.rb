@@ -37,6 +37,16 @@ module AssertI18n::TestHelper
   def each_locale(&block)
     I18n.available_locales.each(&block)
   end
+  
+  def with_each_locale(&block)
+    original_locale = I18n.locale
+    each_locale do |locale|
+      I18n.locale = locale
+      yield
+    end
+  ensure
+    I18n.locale = original_locale
+  end
 
   private
   def missing_translations_in(&block)

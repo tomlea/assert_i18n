@@ -9,7 +9,9 @@ h2. Assertions Provided:
 * @assert_localized_file_availability@ - Checks that a file is exists in all @available_locales@.
 
 h2. Helpers Provided:
+
 * @each_locale@ - Iterates over each locale, passing in the locale as a parameter to the block.
+* @with_each_locale@ - Iterates over each locale, setting `I18n.locale` and running the block for each locale in turn.
 
 h2. Usage:
 
@@ -59,3 +61,15 @@ h3. each_locale
           end
         end
       end
+
+h3. with_each_locale
+
+      class PredeployTest < Test::Unit::TestCase
+        include AssertI18n::TestHelper
+        def test_should_foo_for_all_locales
+          with_each_locale do
+            assert_that_something_still_works
+          end
+        end
+      end
+

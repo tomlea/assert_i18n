@@ -30,9 +30,11 @@ end
 class TestEachLocale < Test::Unit::TestCase
   include AssertI18n::TestHelper
   
+  def assert_array_of_symbols_match(expected, actual, *params)
+    assert_equal expected.sort_by{|v| v.to_s }, actual.sort_by{|v| v.to_s }, *params
+  end
+  
   def test_should_run_block_for_every_locale
-    I18n.reload!
-    
     expected_locales = [:pr_PR, :en_GB, :poo_FACE].each do |locale|
       I18n.backend.store_translations(locale, {})
     end
@@ -42,7 +44,32 @@ class TestEachLocale < Test::Unit::TestCase
       locales_run_in_block << locale
     end
     
-    assert_equal expected_locales, locales_run_in_block
+    assert_array_of_symbols_match expected_locales, locales_run_in_block
   end
 
+  def test_should_run_block_for_every_locale_with_locale_set
+    expected_locales = [:pr_PR, :en_GB, :poo_FACE].each do |locale|
+      I18n.backend.store_translations(locale, {})
+    end
+    
+    locales_run_in_block = []
+    with_each_locale do
+      locales_run_in_block << I18n.locale
+    end
+    
+    assert_array_of_symbols_match expected_locales, locales_run_in_block
+  end
+
+  def test_should_reset_the_locale_no_matter_what_happens
+    expected_locales = [:pr_PR, :en_GB, :poo_FACE].each do |locale|
+      I18n.backend.store_translations(locale, {})
+    end
+    
+    I18n.locale = :not_a_locale_but_should_be_repected
+    
+    with_each_locale{}
+    
+    assert_equal :not_a_locale_but_should_be_repected, I18n.locale
+  end
+  
 end

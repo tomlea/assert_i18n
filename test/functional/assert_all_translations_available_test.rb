@@ -4,10 +4,9 @@ class EqualLocalesTestHelperTest < Test::Unit::TestCase
   include AssertI18n::TestHelper
 
   def setup
-    I18n.reload!
     I18n.backend.store_translations :'en', {:foo => "Bar", :nested => {:translation => {:should => "Work"} } }
     I18n.backend.store_translations :'pirate', { :nested => { :translation => { :should => "Wark me hearties!" } }, :foo => "Barrrr!" } 
-   end
+  end
 
   def test_should_not_raise_a_test_failure
     assert_nothing_raised() { assert_all_locales_have_all_translations_available_to_the_default_locale }
@@ -25,7 +24,6 @@ class UnequalLocalesTestHelperTest < Test::Unit::TestCase
   include AssertI18n::TestHelper
 
   def setup
-    I18n.reload!
     I18n.backend.store_translations :'en', { :bar => { :foo => "Bar" } }
     I18n.backend.store_translations :'pirate', {:bar => { } }
   end
