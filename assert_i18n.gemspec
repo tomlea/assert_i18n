@@ -2,15 +2,15 @@
 
 Gem::Specification.new do |s|
   s.name = %q{assert_i18n}
-  s.version = "0.3"
+  s.version = "0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Tom Lea", "Craig Smith"]
-  s.date = %q{2009-01-16}
+  s.date = %q{2009-01-19}
   s.description = %q{A collection of `I18n` assertions I use in daily life.}
   s.email = %q{commits@tomlea.co.uk}
   s.extra_rdoc_files = ["README.textile"]
-  s.files = ["Rakefile", "README.textile", "lib/assert_i18n/core_ext.rb", "lib/assert_i18n/test_helper.rb", "lib/assert_i18n.rb", "test/functional/assert_all_translations_available_test.rb", "test/functional/test_helper_test.rb", "test/test_helper.rb", "test/unit/supporting_methods_test.rb", "rails/init.rb"]
+  s.files = ["README.textile", "Rakefile", "lib/assert_i18n/core_ext.rb", "lib/assert_i18n/test_helper.rb", "lib/assert_i18n.rb", "test/functional/assert_all_translations_available_test.rb", "test/functional/test_helper_test.rb", "test/test_helper.rb", "test/unit/supporting_methods_test.rb", "rails/init.rb"]
   s.has_rdoc = true
   s.rdoc_options = ["--line-numbers", "--inline-source", "--main", "README.textile"]
   s.require_paths = ["lib"]

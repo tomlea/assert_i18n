@@ -15,7 +15,7 @@ end
 
 spec = Gem::Specification.new do |s|
   s.name        = "assert_i18n"
-  s.version     = "0.3"
+  s.version     = "0.4"
   s.summary     = "A collection of `I18n` assertions I use in daily life."
   s.description = "A collection of `I18n` assertions I use in daily life."
 
