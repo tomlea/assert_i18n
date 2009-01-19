@@ -71,5 +71,19 @@ class TestEachLocale < Test::Unit::TestCase
     
     assert_equal :not_a_locale_but_should_be_repected, I18n.locale
   end
+
+  def test_should_append_the_locale_that_the_error_was_reported_in
+    expected_locales = [:pr_PR, :en_GB].each do |locale|
+      I18n.backend.store_translations(locale, {})
+    end
+    
+    I18n.locale = :not_a_locale_but_should_be_repected
+    
+    e = assert_raise(Test::Unit::AssertionFailedError){
+      with_each_locale{ assert_equal :en_GB, I18n.locale } # A silly test case, will fail if we are in :pr_PR.
+    }
+    
+    assert_match( / in locale :pr_PR$/, e.message )
+  end
   
 end

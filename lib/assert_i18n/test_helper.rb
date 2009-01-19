@@ -44,6 +44,9 @@ module AssertI18n::TestHelper
       I18n.locale = locale
       yield
     end
+  rescue Test::Unit::AssertionFailedError => e
+    e.message << " in locale #{I18n.locale.inspect}"
+    raise e
   ensure
     I18n.locale = original_locale
   end
